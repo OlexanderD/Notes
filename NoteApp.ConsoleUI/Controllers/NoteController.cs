@@ -31,7 +31,7 @@ namespace NoteApp.ConsoleUI.Controllers
         }
         public Note GetNote(int id)
         {
-             return _noteService.GetId(id);
+             return _noteService.GetNoteById(id);
         }
         public void UpdateNote(Note note)
         {

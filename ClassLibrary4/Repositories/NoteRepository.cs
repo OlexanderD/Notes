@@ -51,7 +51,7 @@ namespace NoteApp.DataAccess.Repositories
                 _dbContext.Notes.Remove(note);
                 _dbContext.SaveChanges();
             }
-            public Note GetId(int id)
+            public Note GetNoteById(int id)
             {
                 return _dbContext.Notes.Find(id);
                

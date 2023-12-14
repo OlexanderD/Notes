@@ -37,9 +37,9 @@ namespace NoteApp.BusinessLogic.Services
         {
             _noteRepository.DeleteNote(note);
         }
-        public Note GetId(int id)
+        public Note GetNoteById(int id)
         {
-            return _noteRepository.GetId(id);
+            return _noteRepository.GetNoteById(id);
         }
     }
     
