@@ -23,7 +23,7 @@ internal class Program
         var noteRepository = new NoteRepository(context);
         var noteService = new NoteService(noteRepository);
         var testController = new NoteController(noteService);
-        context.Database.EnsureDeleted();
+        
         context.Database.EnsureCreated();
         do
         {
@@ -57,11 +57,6 @@ internal class Program
             {
                 Console.WriteLine("Creating new note");
                 Note note = new Note();
-
-                Console.WriteLine("Enter Id");
-                int id;
-                Int32.TryParse(Console.ReadLine(), out id);
-                note.Id = id;
                 Console.WriteLine("Enter Title");
                 note.Title = Convert.ToString(Console.ReadLine());
                 Console.WriteLine("Enter Content");
