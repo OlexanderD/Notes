@@ -58,9 +58,9 @@ internal class Program
                 Console.WriteLine("Creating new note");
                 Note note = new Note();
                 Console.WriteLine("Enter Title");
-                note.Title = Convert.ToString(Console.ReadLine());
+                note.Title = Console.ReadLine();
                 Console.WriteLine("Enter Content");
-                note.Content = Convert.ToString(Console.ReadLine());
+                note.Content = Console.ReadLine();
 
                 testController.AddNote(note);
                 Console.WriteLine("Operation succesful");
@@ -86,9 +86,9 @@ internal class Program
                     updatedNote.Id = id;
 
                     Console.WriteLine("Enter new title:");
-                    updatedNote.Title = Convert.ToString(Console.ReadLine());
+                    updatedNote.Title = Console.ReadLine();
                     Console.WriteLine("Enter new content:");
-                    updatedNote.Content = Convert.ToString(Console.ReadLine());
+                    updatedNote.Content = Console.ReadLine();
                     testController.UpdateNote(updatedNote);
                     Console.WriteLine("Operation succesful");
                 }
