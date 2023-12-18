@@ -8,12 +8,15 @@ using NoteApp.DataAccess.Data.Models;
 using NoteApp.DataAccess.Data.Models.Configurations;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
+using NoteApp.Data.Data.Models;
 
 namespace NoteApp.DataAccess.Data
 {
     public class TestContext:DbContext
     {
         public DbSet<Note> Notes { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
 
         public TestContext(DbContextOptions<TestContext> options) : base(options) { }

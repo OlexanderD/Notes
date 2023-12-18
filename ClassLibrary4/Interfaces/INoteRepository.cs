@@ -9,7 +9,7 @@ namespace NoteApp.DataAccess.Interfaces
 {
     public interface INoteRepository
     {
-        List<Note> GetAllNotes();
+        List<Note> GetAllNotes(int userId);
 
        void AddNote(Note note);
 

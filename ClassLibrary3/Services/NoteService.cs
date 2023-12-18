@@ -21,9 +21,9 @@ namespace NoteApp.BusinessLogic.Services
                 _noteRepository = noteRepository;
             }
 
-            public List<Note> GetAllNotes()
+            public List<Note> GetAllNotes(int userId)
             {
-                return _noteRepository.GetAllNotes();
+                return _noteRepository.GetAllNotes(userId);
             }
             public void AddNote(Note note)
         {

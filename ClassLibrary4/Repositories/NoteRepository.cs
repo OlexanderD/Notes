@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NoteApp.Data.Data.Models;
 using NoteApp.DataAccess.Data;
 using NoteApp.DataAccess.Data.Models;
 using NoteApp.DataAccess.Interfaces;
@@ -21,9 +22,9 @@ namespace NoteApp.DataAccess.Repositories
                 _dbContext = dbContext;
             }
 
-            public List<Note> GetAllNotes()
+            public List<Note> GetAllNotes(int userId)
             {
-                return _dbContext.Notes.ToList();
+                return _dbContext.Notes.Where(n => n.UserId == userId).ToList();
             }
 
             public void AddNote(Note note)

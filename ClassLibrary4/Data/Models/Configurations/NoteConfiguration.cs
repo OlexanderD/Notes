@@ -19,6 +19,8 @@ namespace NoteApp.DataAccess.Data.Models.Configurations
 
             builder.Property(x => x.Content);
 
+            builder.HasOne(x => x.User);
+
             
         }
        

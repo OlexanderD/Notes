@@ -9,7 +9,7 @@ namespace NoteApp.BusinessLogic.Inrerfaces
 {
    public interface INoteService
     {
-        List<Note> GetAllNotes();
+        List<Note> GetAllNotes(int userId);
 
         void AddNote(Note note);
 
