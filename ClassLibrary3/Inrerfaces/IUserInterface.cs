@@ -13,6 +13,6 @@ namespace NoteApp.BusinessLogic.Inrerfaces
 
         bool UserRegistration(User user);
 
-        bool UserLogin(string username,string password);
+        User? UserLogin(string username,string password);
     }
 }

@@ -37,18 +37,12 @@ namespace NoteApp.Data.Repositories
             return true;
 
         }
-        public bool UserLogin(string username, string password)
+        public User? UserLogin(string username, string password)
         {
-            var user = _userRepository.Users.FirstOrDefault(u => u.UserName == username);
+            var user = _userRepository.Users.FirstOrDefault(u => u.UserName == username && u.Password == password);
 
-          
-            if (user != null)
-            {
-                return user.Password == password;
-            }
-
+            return user;
             
-            return false;
         }
         
     }

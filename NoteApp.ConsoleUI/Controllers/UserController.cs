@@ -25,7 +25,7 @@ namespace NoteApp.ConsoleUI.Controllers
         {
             return _userService.UserRegistration(user);
         }
-        public bool UserLogin(string username,string password)
+        public User? UserLogin(string username,string password)
         {
             return _userService.UserLogin(username, password);
         }

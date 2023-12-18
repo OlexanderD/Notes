@@ -33,7 +33,7 @@ internal class Program
         var testController = new NoteController(noteService);
         var userController = new UserController(userService);
 
-        
+      
         context.Database.EnsureCreated();
 
         while (true)
@@ -82,11 +82,12 @@ internal class Program
                     Console.WriteLine("Enter Password:");
                     password = Console.ReadLine();
 
-                    bool success1 = userController.UserLogin(username, password);
+                    User? user1 = userController.UserLogin(username, password);
                     
 
-                    if (success1)
+                    if (user1 != null)
                     {
+                        int userid=user1.Id;
                         Console.WriteLine("User succesfully enters ");
                         do
                         {
@@ -100,7 +101,7 @@ internal class Program
                             if (menu == 1)
                             {
                                 Console.WriteLine("Your notes");
-                                var notes = testController.GetAllNotes(user.Id);
+                                var notes = testController.GetAllNotes(userid);
 
                                 foreach (var note in notes)
                                 {
@@ -125,6 +126,8 @@ internal class Program
                                 Console.WriteLine("Enter Content");
                                 note.Content = Console.ReadLine();
 
+                                note.UserId = userid;
+
                                 testController.AddNote(note);
                                 Console.WriteLine("Operation succesful");
                                 Console.ReadLine();
@@ -132,7 +135,7 @@ internal class Program
                             else if (menu == 3)
                             {
                                 Console.WriteLine("Update your Note");
-                                var notes = testController.GetAllNotes(Id);
+                                var notes = testController.GetAllNotes(userid);
 
                                 foreach (var note in notes)
                                 {

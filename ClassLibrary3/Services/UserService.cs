@@ -25,7 +25,7 @@ namespace NoteApp.BusinessLogic.Services
         {
             return _userRepository.UserRegistration(user);
         }
-        public bool UserLogin(string username,string password)
+        public User? UserLogin(string username,string password)
         {
             return _userRepository.UserLogin(username,password);
         }

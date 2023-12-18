@@ -13,6 +13,6 @@ namespace NoteApp.Data.Interfaces
         List<User> GetAllUsers();
         bool UserRegistration(User user);
 
-        bool UserLogin(string username,string password);
+         User? UserLogin(string username,string password);
     }
 }
