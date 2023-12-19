@@ -33,7 +33,7 @@ internal class Program
         var testController = new NoteController(noteService);
         var userController = new UserController(userService);
 
-      
+        
         context.Database.EnsureCreated();
 
         while (true)
@@ -172,7 +172,7 @@ internal class Program
 
                                 Note note = testController.GetNote(id);
 
-                                if (note != null)
+                                if (note != null && userid == note.Id)
                                 {
                                     testController.RemoveNote(note);
                                     Console.WriteLine("Operation succesful");
