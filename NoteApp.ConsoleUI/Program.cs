@@ -33,7 +33,7 @@ internal class Program
         var testController = new NoteController(noteService);
         var userController = new UserController(userService);
 
-        
+       
         context.Database.EnsureCreated();
 
         while (true)
@@ -146,7 +146,7 @@ internal class Program
                                 Int32.TryParse(Console.ReadLine(), out id);
 
                                 Note existingNote = testController.GetNote(id);
-                                if (existingNote != null)
+                                if (existingNote != null && userid == existingNote.Id)
                                 {
                                     Note updatedNote = new Note();
                                     updatedNote.Id = id;
@@ -166,6 +166,12 @@ internal class Program
                             else if (menu == 4)
                             {
                                 Console.WriteLine("Delete your Note");
+                                var notes = testController.GetAllNotes(userid);
+
+                                foreach (var note1 in notes)
+                                {
+                                    Console.WriteLine($"Existing notes\n:ID: {note1.Id}");
+                                }
                                 Console.WriteLine("Enter Note ID");
                                 int id;
                                 Int32.TryParse(Console.ReadLine(), out id);
