@@ -19,6 +19,8 @@ namespace NoteApp.DataAccess.Data
         public DbSet<User> Users { get; set; }
 
 
+        public TestContext() => Database.EnsureCreated();
+
         public TestContext(DbContextOptions<TestContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,6 +29,8 @@ namespace NoteApp.DataAccess.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
+
+           
 
 
         }

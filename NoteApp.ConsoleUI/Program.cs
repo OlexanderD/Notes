@@ -1,13 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.BusinessLogic.Services;
 using NoteApp.ConsoleUI.Common.Helpers;
 using NoteApp.ConsoleUI.Controllers;
 using NoteApp.Data.Data.Models;
+using NoteApp.Data.Interfaces;
 using NoteApp.Data.Repositories;
 using NoteApp.DataAccess.Data;
 using NoteApp.DataAccess.Data.Models;
+using NoteApp.DataAccess.Interfaces;
 using NoteApp.DataAccess.Repositories.NoteApp.DataAccess.Repositories;
 using System.Numerics;
 
@@ -15,26 +19,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+
         var config = ConfigurationHelper.SetupConfiguration();
+        var serviceProvider = ServiceHelper.BuildServiceProvider(config);
 
-        var connectionString = config.GetConnectionString("DefaultConnetion");
+        
 
-        var optionsBuilder = new DbContextOptionsBuilder<TestContext>();
-        var options = optionsBuilder.UseSqlite(connectionString).Options;
+        UserController userController =serviceProvider.GetRequiredService<UserController>();
 
-        using var context = new TestContext(options);
-
-        var noteRepository = new NoteRepository(context);
-        var userRepository = new UserRepository(context);
-
-        var noteService = new NoteService(noteRepository);
-        var userService = new UserService(userRepository);
-
-        var testController = new NoteController(noteService);
-        var userController = new UserController(userService);
-
-       
-        context.Database.EnsureCreated();
+        NoteController noteController=serviceProvider.GetRequiredService<NoteController>();
 
         while (true)
         {
@@ -101,7 +94,7 @@ internal class Program
                             if (menu == 1)
                             {
                                 Console.WriteLine("Your notes");
-                                var notes = testController.GetAllNotes(userid);
+                                var notes = noteController.GetAllNotes(userid);
 
                                 foreach (var note in notes)
                                 {
@@ -128,14 +121,14 @@ internal class Program
 
                                 note.UserId = userid;
 
-                                testController.AddNote(note);
+                                noteController.AddNote(note);
                                 Console.WriteLine("Operation succesful");
                                 Console.ReadLine();
                             }
                             else if (menu == 3)
                             {
                                 Console.WriteLine("Update your Note");
-                                var notes = testController.GetAllNotes(userid);
+                                var notes = noteController.GetAllNotes(userid);
 
                                 foreach (var note in notes)
                                 {
@@ -145,7 +138,7 @@ internal class Program
                                 int id;
                                 Int32.TryParse(Console.ReadLine(), out id);
 
-                                Note existingNote = testController.GetNote(id);
+                                Note existingNote = noteController.GetNote(id);
                                 if (existingNote != null && userid == existingNote.Id)
                                 {
                                     Note updatedNote = new Note();
@@ -155,7 +148,7 @@ internal class Program
                                     updatedNote.Title = Console.ReadLine();
                                     Console.WriteLine("Enter new content:");
                                     updatedNote.Content = Console.ReadLine();
-                                    testController.UpdateNote(updatedNote);
+                                    noteController.UpdateNote(updatedNote);
                                     Console.WriteLine("Operation succesful");
                                 }
                                 else
@@ -166,7 +159,7 @@ internal class Program
                             else if (menu == 4)
                             {
                                 Console.WriteLine("Delete your Note");
-                                var notes = testController.GetAllNotes(userid);
+                                var notes = noteController.GetAllNotes(userid);
 
                                 foreach (var note1 in notes)
                                 {
@@ -176,11 +169,11 @@ internal class Program
                                 int id;
                                 Int32.TryParse(Console.ReadLine(), out id);
 
-                                Note note = testController.GetNote(id);
+                                Note note = noteController.GetNote(id);
 
                                 if (note != null && userid == note.Id)
                                 {
-                                    testController.RemoveNote(note);
+                                    noteController.RemoveNote(note);
                                     Console.WriteLine("Operation succesful");
                                 }
                                 else
