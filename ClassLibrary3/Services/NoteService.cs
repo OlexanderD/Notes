@@ -1,31 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NoteApp.BusinessLogic.Inrerfaces;
+﻿using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.DataAccess.Data.Models;
 using NoteApp.DataAccess.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static NoteApp.BusinessLogic.Services.NoteService;
 
 namespace NoteApp.BusinessLogic.Services
 {
     public class NoteService:INoteService
     {
-        
-            private readonly INoteRepository _noteRepository;
 
-            public NoteService(INoteRepository noteRepository)
-            {
-                _noteRepository = noteRepository;
-            }
+        private readonly INoteRepository _noteRepository;
 
-            public List<Note> GetAllNotes(int userId)
-            {
-                return _noteRepository.GetAllNotes(userId);
-            }
-            public void AddNote(Note note)
+        public NoteService(INoteRepository noteRepository)
+        {
+            _noteRepository = noteRepository;
+        }
+
+        public List<Note> GetAllNotes(int userId)
+        {
+            return _noteRepository.GetAllNotes(userId);
+        }
+        public void AddNote(Note note)
         {
              _noteRepository.AddNote(note);
         }

@@ -12,14 +12,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteApp.ConsoleUI", "NoteAp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{AF37DF88-8006-4B68-AF85-F1742983DF52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteApp.BusinessLogic", "ClassLibrary3\NoteApp.BusinessLogic.csproj", "{FAE63A34-8E35-4E1A-9DFE-8CEEC8CBA280}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteApp.BusinessLogic", "ClassLibrary3\NoteApp.BusinessLogic.csproj", "{FAE63A34-8E35-4E1A-9DFE-8CEEC8CBA280}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AF49ABE2-9D37-4551-AD37-31C5ECD991A7} = {AF49ABE2-9D37-4551-AD37-31C5ECD991A7}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{8137CD3A-E712-43E7-8D88-B23BFE765078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteApp.Data", "ClassLibrary4\NoteApp.Data.csproj", "{AF49ABE2-9D37-4551-AD37-31C5ECD991A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteApp.Data", "ClassLibrary4\NoteApp.Data.csproj", "{AF49ABE2-9D37-4551-AD37-31C5ECD991A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebNote", "WebNote\WebNote.csproj", "{06BFFE96-E02A-49D6-82AF-6CA74A06C38B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{AF49ABE2-9D37-4551-AD37-31C5ECD991A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF49ABE2-9D37-4551-AD37-31C5ECD991A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF49ABE2-9D37-4551-AD37-31C5ECD991A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06BFFE96-E02A-49D6-82AF-6CA74A06C38B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BFFE96-E02A-49D6-82AF-6CA74A06C38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BFFE96-E02A-49D6-82AF-6CA74A06C38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BFFE96-E02A-49D6-82AF-6CA74A06C38B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{00D6CEDB-A60A-4154-ADFF-FC7C409626E4} = {D6488694-B4E6-4172-8CFC-6E331C1FC435}
 		{FAE63A34-8E35-4E1A-9DFE-8CEEC8CBA280} = {AF37DF88-8006-4B68-AF85-F1742983DF52}
 		{AF49ABE2-9D37-4551-AD37-31C5ECD991A7} = {8137CD3A-E712-43E7-8D88-B23BFE765078}
+		{06BFFE96-E02A-49D6-82AF-6CA74A06C38B} = {D6488694-B4E6-4172-8CFC-6E331C1FC435}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10729755-81B7-40A9-8F24-873B87D0224C}

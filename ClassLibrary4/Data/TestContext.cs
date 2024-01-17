@@ -21,7 +21,10 @@ namespace NoteApp.DataAccess.Data
 
         public TestContext() => Database.EnsureCreated();
 
-        public TestContext(DbContextOptions<TestContext> options) : base(options) { }
+        public TestContext(DbContextOptions<TestContext> options) : base(options) 
+        {
+            Database.EnsureCreated();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
