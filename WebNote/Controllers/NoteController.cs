@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.DataAccess.Data.Models;
+using WebNote.Common.Mappings;
+using WebNote.ViewModels;
 
 namespace WebNote.Controllers
 {
@@ -12,9 +15,12 @@ namespace WebNote.Controllers
         
             private readonly INoteService _noteService;
 
-            public NoteController(INoteService noteService)
+           private readonly IMapper _mapper;
+
+            public NoteController(INoteService noteService,IMapper mapper)
             {
                 _noteService = noteService;
+                _mapper = mapper;
             }
 
 
@@ -25,15 +31,15 @@ namespace WebNote.Controllers
             }
 
         [HttpPost]
-            public void AddNote(Note note)
-            {
-                _noteService.AddNote(note);
+            public void AddNote(NoteViewModels noteViewModel)
+            {            
+                _noteService.AddNote(_mapper.Map<Note>(noteViewModel));
             }
 
-            [HttpDelete("{id}")] // ты в маршруте запрашиваешь id
-            public void RemoveNote(Note note)
+            [HttpDelete("{id}")] 
+            public void RemoveNote(int id)
             {
-                _noteService.DeleteNote(note);
+                _noteService.DeleteNote(id);
             }
 
         [HttpGet("{id}")]
@@ -41,10 +47,11 @@ namespace WebNote.Controllers
             {
                 return _noteService.GetNoteById(id);
             }
-        [HttpPost("{id}")]
-            public void UpdateNote(Note note)
+        [HttpPut]
+            public void UpdateNote(NoteViewModels noteViewModel)
             {
-                _noteService.UpdateNote(note);
+                 
+                _noteService.UpdateNote(_mapper.Map<Note>(noteViewModel));
             }
         }
     }

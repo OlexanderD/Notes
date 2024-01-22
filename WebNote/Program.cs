@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.BusinessLogic.Services;
@@ -6,6 +7,7 @@ using NoteApp.Data.Repositories;
 using NoteApp.DataAccess.Data;
 using NoteApp.DataAccess.Interfaces;
 using NoteApp.DataAccess.Repositories.NoteApp.DataAccess.Repositories;
+using WebNote.Common.Mappings;
 using WebNote.Controllers;
 
 var builder = WebApplication.CreateBuilder();
@@ -25,11 +27,15 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<NoteController>();
 builder.Services.AddTransient<UserController>();
 
+builder.Services.AddAutoMapper(typeof(NoteMapProfile));
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();   
 
 builder.Services.AddSwaggerGen();
+
+
 
 
 var app = builder.Build();

@@ -15,7 +15,7 @@ namespace NoteApp.BusinessLogic.Inrerfaces
 
         void UpdateNote(Note note);
 
-        void DeleteNote(Note note);
+        void DeleteNote(int id);
 
         Note GetNoteById(int id);
     }

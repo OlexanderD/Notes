@@ -47,13 +47,19 @@ namespace NoteApp.DataAccess.Repositories
             }
 
 
-            public void DeleteNote(Note note)
-            { 
-                _dbContext.Notes.Remove(note);
-                _dbContext.SaveChanges();
+            public void DeleteNote(int id)
+            {
+                Note note = _dbContext.Notes.Find(id);
+
+                if (note != null)
+                {
+                    _dbContext.Notes.Remove(note);
+                    _dbContext.SaveChanges();
+                }
             }
             public Note GetNoteById(int id)
             {
+
                 return _dbContext.Notes.Find(id);
                
             }

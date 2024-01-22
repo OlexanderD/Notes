@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.Data.Data.Models;
+using WebNote.ViewModels;
 
 namespace WebNote.Controllers
 {
@@ -12,9 +14,13 @@ namespace WebNote.Controllers
 
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        private readonly IMapper _mapper;
+
+        public UserController(IUserService userService,IMapper mapper)
         {
             _userService = userService;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -24,9 +30,9 @@ namespace WebNote.Controllers
         }
 
         [HttpPost]
-        public bool UserRegistration(User user)
+        public bool UserRegistration(UserViewModel userViewModel)
         {
-            return _userService.UserRegistration(user);
+            return _userService.UserRegistration(_mapper.Map<User>(userViewModel));
         }
 
         [HttpGet("{id}")]
@@ -34,5 +40,6 @@ namespace WebNote.Controllers
         {
             return _userService.UserLogin(username, password);
         }
+
     }
 }
