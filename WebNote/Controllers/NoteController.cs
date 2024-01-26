@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.DataAccess.Data.Models;
+using System.Text;
 using WebNote.Common.Mappings;
 using WebNote.ViewModels;
 
@@ -35,19 +36,23 @@ namespace WebNote.Controllers
             }
 
         [HttpPost]
-            public void AddNote(NoteViewModels noteViewModel)
+            public IActionResult AddNote(NoteViewModels noteViewModel)
             {            
                 _noteService.AddNote(_mapper.Map<Note>(noteViewModel));
 
                 _logger.LogInformation("New note added");
-            }
+
+                  return Ok("New note added");
+        }
 
             [HttpDelete("{id}")] 
-            public void RemoveNote(int id)
+            public IActionResult RemoveNote(int id)
             {
                 _noteService.DeleteNote(id);
 
                _logger.LogInformation($"Note removed {id}");
+
+               return Ok($"Note removed {id}");
             }
 
         [HttpGet("{id}")]
@@ -59,12 +64,14 @@ namespace WebNote.Controllers
 
             }
         [HttpPut]
-            public void UpdateNote(NoteViewModels noteViewModel)
+            public IActionResult UpdateNote(NoteViewModels noteViewModel)
             {
                  
                 _noteService.UpdateNote(_mapper.Map<Note>(noteViewModel));
 
-            _logger.LogInformation("Note Updated");
+                _logger.LogInformation("Note Updated");
+
+            return Ok("Note Uodated");
             }
         }
     }

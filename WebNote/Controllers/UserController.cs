@@ -38,6 +38,7 @@ namespace WebNote.Controllers
         {
             _logger.LogInformation($"Registration completed");
             return _userService.UserRegistration(_mapper.Map<User>(userViewModel));
+            
         }
 
         [HttpGet("{id}")]
