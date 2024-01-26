@@ -27,6 +27,8 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<NoteController>();
 builder.Services.AddTransient<UserController>();
 
+builder.Services.AddLogging();
+
 builder.Services.AddAutoMapper(typeof(NoteMapProfile));
 
 builder.Services.AddControllers();

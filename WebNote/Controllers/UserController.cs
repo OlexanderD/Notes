@@ -16,28 +16,34 @@ namespace WebNote.Controllers
 
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService,IMapper mapper)
+        private readonly ILogger<UserController> _logger;
+        public UserController(IUserService userService,IMapper mapper, ILogger<UserController> logger)
         {
             _userService = userService;
 
             _mapper = mapper;
+
+            _logger = logger;
         }
 
         [HttpGet]
         public List<User> GetAllUsers()
         {
+            _logger.LogInformation("All Users");
             return _userService.GetAllUsers();
         }
 
         [HttpPost]
         public bool UserRegistration(UserViewModel userViewModel)
         {
+            _logger.LogInformation($"Registration completed");
             return _userService.UserRegistration(_mapper.Map<User>(userViewModel));
         }
 
         [HttpGet("{id}")]
         public User? UserLogin(string username, string password)
         {
+            _logger.LogInformation("Login completed");
             return _userService.UserLogin(username, password);
         }
 
