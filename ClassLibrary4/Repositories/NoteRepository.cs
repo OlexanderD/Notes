@@ -36,14 +36,16 @@ namespace NoteApp.DataAccess.Repositories
             {
                 Note existingNote = _dbContext.Notes.Find(note.Id);
 
-                if (existingNote != null)
+                if (existingNote == null)
                 {
-                    existingNote.Title = note.Title;
+                    throw new Exception($"Error occurred while updating note, note with id ({note.Id}) not found");
+                }
+                existingNote.Title = note.Title;
                     existingNote.Content = note.Content;
 
                     _dbContext.Attach(existingNote);
                     _dbContext.SaveChanges();
-                }
+                
             }
 
 
@@ -51,11 +53,14 @@ namespace NoteApp.DataAccess.Repositories
             {
                 Note note = _dbContext.Notes.Find(id);
 
-                if (note != null)
+                if (note == null)
                 {
-                    _dbContext.Notes.Remove(note);
-                    _dbContext.SaveChanges();
+                    throw new Exception($"Error occurred while deleting note, note with id ({id}) not found");
                 }
+
+                _dbContext.Notes.Remove(note);
+                _dbContext.SaveChanges();
+                
             }
             public Note GetNoteById(int id)
             {
