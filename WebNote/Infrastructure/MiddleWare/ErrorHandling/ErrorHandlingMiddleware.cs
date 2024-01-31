@@ -1,4 +1,6 @@
-﻿namespace WebNote.Infrastructure.MiddleWare.ErrorHandling
+﻿using Microsoft.AspNetCore.Diagnostics;
+
+namespace WebNote.Infrastructure.MiddleWare.ErrorHandling
 {
     public class ErrorHandlingMiddleware
     {
@@ -25,7 +27,10 @@
                 context.Response.ContentType = "plain/text";                
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await context.Response.WriteAsync(exception.Message);
+
+
             }
         }
+        }
     }
-}
+

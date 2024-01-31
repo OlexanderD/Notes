@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.DataAccess.Data.Models;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Text.Json;
 using WebNote.Common.Mappings;
 using WebNote.ViewModels;
 
@@ -20,11 +25,14 @@ namespace WebNote.Controllers
 
             private readonly ILogger<NoteController> _logger;
 
-        public NoteController(INoteService noteService,IMapper mapper, ILogger<NoteController> logger)
+           private readonly IValidator<NoteViewModels> _validator;
+
+        public NoteController(INoteService noteService,IMapper mapper, ILogger<NoteController> logger,IValidator<NoteViewModels> validator)
             {
                 _noteService = noteService;
                 _mapper = mapper;
                 _logger = logger;
+                _validator = validator;
             }
 
 
@@ -36,16 +44,25 @@ namespace WebNote.Controllers
             }
 
         [HttpPost]
-            public IActionResult AddNote(NoteViewModels noteViewModel)
-            {            
-                _noteService.AddNote(_mapper.Map<Note>(noteViewModel));
+        public IActionResult AddNote(NoteViewModels noteViewModel)
+        {
+            var validationContext = new ValidationContext<NoteViewModels>(noteViewModel);
+            var validationResult = _validator.Validate(validationContext);
 
-                _logger.LogInformation("New note added");
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => new { Property = e.PropertyName, ErrorMessage = e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
 
-                  return Ok("New note added");
+            _noteService.AddNote(_mapper.Map<Note>(noteViewModel));
+
+            _logger.LogInformation("New note added");
+
+            return Ok("New note added");
         }
 
-            [HttpDelete("{id}")] 
+        [HttpDelete("{id}")] 
             public IActionResult RemoveNote(int id)
             {
                 _noteService.DeleteNote(id);
@@ -66,10 +83,17 @@ namespace WebNote.Controllers
         [HttpPut]
             public IActionResult UpdateNote(NoteViewModels noteViewModel)
             {
-                 
-                _noteService.UpdateNote(_mapper.Map<Note>(noteViewModel));
+            var validationContext = new ValidationContext<NoteViewModels>(noteViewModel);
+            var validationResult = _validator.Validate(validationContext);
 
-                _logger.LogInformation("Note Updated");
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => new { Property = e.PropertyName, ErrorMessage = e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
+            _noteService.UpdateNote(_mapper.Map<Note>(noteViewModel));
+
+            _logger.LogInformation("Note Updated");
 
             return Ok("Note Uodated");
             }

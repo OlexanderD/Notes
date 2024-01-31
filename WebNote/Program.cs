@@ -1,8 +1,10 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NoteApp.BusinessLogic.Inrerfaces;
 using NoteApp.BusinessLogic.Services;
+using NoteApp.ConsoleUI.Common.Validators;
 using NoteApp.Data.Interfaces;
 using NoteApp.Data.Repositories;
 using NoteApp.DataAccess.Data;
@@ -11,6 +13,7 @@ using NoteApp.DataAccess.Repositories.NoteApp.DataAccess.Repositories;
 using WebNote.Common.Mappings;
 using WebNote.Controllers;
 using WebNote.Infrastructure.MiddleWare.ErrorHandling;
+using WebNote.ViewModels;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -28,6 +31,9 @@ builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddTransient<NoteController>();
 builder.Services.AddTransient<UserController>();
+
+builder.Services.AddTransient<IValidator<NoteViewModels>, NoteViewModelValidator>();
+
 
 
 
