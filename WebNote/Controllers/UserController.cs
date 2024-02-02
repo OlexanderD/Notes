@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.BusinessLogic.Inrerfaces;
@@ -17,13 +18,17 @@ namespace WebNote.Controllers
         private readonly IMapper _mapper;
 
         private readonly ILogger<UserController> _logger;
-        public UserController(IUserService userService,IMapper mapper, ILogger<UserController> logger)
+
+        private readonly IValidator<UserViewModel> _validator;
+        public UserController(IUserService userService,IMapper mapper, ILogger<UserController> logger,IValidator<UserViewModel> validator)
         {
             _userService = userService;
 
             _mapper = mapper;
 
             _logger = logger;
+
+            _validator = validator;
         }
 
         [HttpGet]
@@ -34,18 +39,42 @@ namespace WebNote.Controllers
         }
 
         [HttpPost]
-        public bool UserRegistration(UserViewModel userViewModel)
+        public IActionResult UserRegistration(UserViewModel userViewModel)
         {
+            var validationResult = _validator.Validate(userViewModel);
+
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => new { Property = e.PropertyName, ErrorMessage = e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
             _logger.LogInformation($"Registration completed");
-            return _userService.UserRegistration(_mapper.Map<User>(userViewModel));
+            _userService.UserRegistration(_mapper.Map<User>(userViewModel));
+
+            return Ok("Registration completed");
             
         }
 
         [HttpGet("{id}")]
-        public User? UserLogin(string username, string password)
+        public IActionResult UserLogin([FromQuery] UserViewModel  userViewModel)
         {
+            var validationResult = _validator.Validate(userViewModel);
+
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(e => new { Property = e.PropertyName, ErrorMessage = e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
             _logger.LogInformation("Login completed");
-            return _userService.UserLogin(username, password);
+            var user = _userService.UserLogin(userViewModel.UserName, userViewModel.Password);
+
+            if (user == null)
+            {
+                return BadRequest("Invalid username or password");
+            }
+            return Ok("Login completed");
         }
 
     }

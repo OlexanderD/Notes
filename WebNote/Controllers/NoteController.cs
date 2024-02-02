@@ -46,8 +46,8 @@ namespace WebNote.Controllers
         [HttpPost]
         public IActionResult AddNote(NoteViewModels noteViewModel)
         {
-            var validationContext = new ValidationContext<NoteViewModels>(noteViewModel);
-            var validationResult = _validator.Validate(validationContext);
+           
+            var validationResult = _validator.Validate(noteViewModel);
 
             if (!validationResult.IsValid)
             {
@@ -83,8 +83,8 @@ namespace WebNote.Controllers
         [HttpPut]
             public IActionResult UpdateNote(NoteViewModels noteViewModel)
             {
-            var validationContext = new ValidationContext<NoteViewModels>(noteViewModel);
-            var validationResult = _validator.Validate(validationContext);
+
+            var validationResult = _validator.Validate(noteViewModel);
 
             if (!validationResult.IsValid)
             {

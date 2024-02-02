@@ -14,9 +14,8 @@ namespace NoteApp.ConsoleUI.Common.Validators
 
        public NoteViewModelValidator()
         {
-            RuleFor(x =>x.Title).NotEmpty();
-
-            RuleFor(x =>x.Title).MaximumLength(15);
+            RuleFor(x =>x.Title).NotEmpty()
+                .MaximumLength(15);
 
             RuleFor(x =>x.Content).MaximumLength(50);
         }

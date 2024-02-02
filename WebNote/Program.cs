@@ -11,6 +11,7 @@ using NoteApp.DataAccess.Data;
 using NoteApp.DataAccess.Interfaces;
 using NoteApp.DataAccess.Repositories.NoteApp.DataAccess.Repositories;
 using WebNote.Common.Mappings;
+using WebNote.Common.Validators;
 using WebNote.Controllers;
 using WebNote.Infrastructure.MiddleWare.ErrorHandling;
 using WebNote.ViewModels;
@@ -33,6 +34,8 @@ builder.Services.AddTransient<NoteController>();
 builder.Services.AddTransient<UserController>();
 
 builder.Services.AddTransient<IValidator<NoteViewModels>, NoteViewModelValidator>();
+
+builder.Services.AddTransient<IValidator<UserViewModel>, UserViewValidator>();
 
 
 
@@ -60,7 +63,11 @@ app.MapControllers();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+        c.RoutePrefix = string.Empty; 
+    });
 }
 
 app.Run();
