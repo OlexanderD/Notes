@@ -22,7 +22,7 @@ namespace NoteApp.DataAccess.Repositories
                 _dbContext = dbContext;
             }
 
-            public List<Note> GetAllNotes(int userId)
+            public List<Note> GetAllNotes(string userId)
             {
                 return _dbContext.Notes.Where(n => n.UserId == userId).ToList();
             }

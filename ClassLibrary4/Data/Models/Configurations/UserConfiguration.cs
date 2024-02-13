@@ -12,13 +12,9 @@ namespace NoteApp.Data.Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<User> userbuilder)
         {
-            userbuilder.HasKey(x => x.Id);
-
-            userbuilder.Property(x=>x.UserName).IsRequired();
-
-            userbuilder.Property(x=> x.Password).IsRequired();
-
-            userbuilder.HasMany(x => x.notes);
+            userbuilder.HasMany(x => x.Notes)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
         }
 
     }

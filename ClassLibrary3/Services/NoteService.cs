@@ -14,7 +14,7 @@ namespace NoteApp.BusinessLogic.Services
             _noteRepository = noteRepository;
         }
 
-        public List<Note> GetAllNotes(int userId)
+        public List<Note> GetAllNotes(string userId)
         {
             return _noteRepository.GetAllNotes(userId);
         }

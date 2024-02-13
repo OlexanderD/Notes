@@ -3,7 +3,9 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using NoteApp.BusinessLogic.Inrerfaces;
+using NoteApp.Data.Data.Models;
 using NoteApp.DataAccess.Data.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -18,30 +20,45 @@ namespace WebNote.Controllers
     [ApiController]
     public class NoteController : ControllerBase
     {
-        
-            private readonly INoteService _noteService;
+        private readonly INoteService _noteService;
+        private readonly IMapper _mapper;
+        private readonly ILogger<NoteController> _logger;
+        private readonly IValidator<NoteViewModels> _validator;
+        private readonly IMemoryCache _memoryCache;
 
-            private readonly IMapper _mapper;
-
-            private readonly ILogger<NoteController> _logger;
-
-           private readonly IValidator<NoteViewModels> _validator;
-
-        public NoteController(INoteService noteService,IMapper mapper, ILogger<NoteController> logger,IValidator<NoteViewModels> validator)
-            {
-                _noteService = noteService;
-                _mapper = mapper;
-                _logger = logger;
-                _validator = validator;
-            }
+        public NoteController(INoteService noteService,IMapper mapper, ILogger<NoteController> logger,IValidator<NoteViewModels> validator,IMemoryCache memoryCache)
+        {
+            _noteService = noteService;
+            _mapper = mapper;
+            _logger = logger;
+            _validator = validator;
+            _memoryCache = memoryCache;
+        }
 
 
         [HttpGet]
-            public List<Note> GetAllNotes(int userId)
+        public List<Note> GetAllNotes(string userId)
+        {
+            _logger.LogInformation("All Notes");
+
+            List<Note> cachedNotes = _memoryCache.Get<List<Note>>(userId);
+
+            if (cachedNotes != null)
             {
-                _logger.LogInformation("All Notes");
-                return _noteService.GetAllNotes(userId);
+                _logger.LogInformation("Notes retrieved from cache.");
+                _memoryCache.Remove(userId);
             }
+            else
+            {
+                _logger.LogInformation("Notes retrieved from database.");
+                cachedNotes = _noteService.GetAllNotes(userId);
+            }
+
+            _memoryCache.Set(userId, cachedNotes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+
+            return cachedNotes;
+        }
+
 
         [HttpPost]
         public IActionResult AddNote(NoteViewModels noteViewModel)
@@ -95,7 +112,7 @@ namespace WebNote.Controllers
 
             _logger.LogInformation("Note Updated");
 
-            return Ok("Note Uodated");
+            return Ok("Note Updated");
             }
         }
     }

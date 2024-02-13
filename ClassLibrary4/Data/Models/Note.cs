@@ -1,4 +1,5 @@
-﻿using NoteApp.Data.Data.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using NoteApp.Data.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace NoteApp.DataAccess.Data.Models
 
         public string Content { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public User? User { get; set; }
     }

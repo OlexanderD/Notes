@@ -51,7 +51,7 @@ internal class Program
                     Console.WriteLine("Enter password:");
                     string password = Console.ReadLine();
 
-                    User user = new User {Password=password,UserName=username};
+                    //User user = new User {Password=password,UserName=username};
 
                     bool success = userController.UserRegistration(user);
                      
@@ -80,7 +80,7 @@ internal class Program
 
                     if (user1 != null)
                     {
-                        int userid=user1.Id;
+                        //int userid=user1.Id;
                         Console.WriteLine("User succesfully enters ");
                         do
                         {

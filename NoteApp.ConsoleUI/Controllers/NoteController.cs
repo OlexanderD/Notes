@@ -17,7 +17,7 @@ namespace NoteApp.ConsoleUI.Controllers
             _noteService = noteService;
         }
 
-        public List<Note> GetAllNotes(int userId)
+        public List<Note> GetAllNotes(string userId)
         {
             return _noteService.GetAllNotes(userId);
         }

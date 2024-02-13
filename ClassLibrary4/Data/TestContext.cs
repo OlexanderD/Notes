@@ -9,15 +9,13 @@ using NoteApp.DataAccess.Data.Models.Configurations;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using NoteApp.Data.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace NoteApp.DataAccess.Data
 {
-    public class TestContext:DbContext
+    public class TestContext: IdentityDbContext<User>
     {
         public DbSet<Note> Notes { get; set; }
-
-        public DbSet<User> Users { get; set; }
-
 
         public TestContext() => Database.EnsureCreated();
 
@@ -32,9 +30,6 @@ namespace NoteApp.DataAccess.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
-
-           
-
 
         }
 

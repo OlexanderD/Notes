@@ -1,20 +1,10 @@
-﻿using NoteApp.DataAccess.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using NoteApp.DataAccess.Data.Models;
 
 namespace NoteApp.Data.Data.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-
-        public string UserName { get; set;}
-
-        public string Password { get; set;}
-
-        public List<Note> notes { get; set;}
+        public List<Note> Notes { get; set;}
     }
 }

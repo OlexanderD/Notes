@@ -10,7 +10,9 @@ namespace WebNote.Common.Mappings
         public NoteMapProfile()
         {
             CreateMap<Note, NoteViewModels>().ReverseMap();
-            CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>()
+                .ReverseMap()
+                .ForMember(m => m.PasswordHash, n => n.MapFrom(u => u.Password));
         }
     }
 
