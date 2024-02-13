@@ -41,24 +41,10 @@ namespace WebNote.Controllers
         {
             _logger.LogInformation("All Notes");
 
-            List<Note> cachedNotes = _memoryCache.Get<List<Note>>(userId);
-
-            if (cachedNotes != null)
-            {
-                _logger.LogInformation("Notes retrieved from cache.");
-                _memoryCache.Remove(userId);
-            }
-            else
-            {
-                _logger.LogInformation("Notes retrieved from database.");
-                cachedNotes = _noteService.GetAllNotes(userId);
-            }
-
-            _memoryCache.Set(userId, cachedNotes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
-
-            return cachedNotes;
+             return _noteService.GetAllNotes(userId);
+           
+          
         }
-
 
         [HttpPost]
         public IActionResult AddNote(NoteViewModels noteViewModel)
