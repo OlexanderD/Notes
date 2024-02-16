@@ -41,7 +41,7 @@ namespace NoteApp.DataAccess.Repositories
                     throw new Exception($"Error occurred while updating note, note with id ({note.Id}) not found");
                 }
                 existingNote.Title = note.Title;
-                    existingNote.Content = note.Content;
+                existingNote.Content = note.Content;
 
                     _dbContext.Attach(existingNote);
                     _dbContext.SaveChanges();

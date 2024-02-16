@@ -25,25 +25,23 @@ namespace NoteApp.BusinessLogic.Services
 
         public List<Note> GetAllNotes(string userId)
         {
-            _memoryCache.TryGetValue(userId, out List<Note> cachedNotes);
-            if (cachedNotes == null)
-            {
-                
-                cachedNotes = _noteRepository.GetAllNotes(userId);
-                
-                if (cachedNotes != null)
-                {
-                    _logger.LogInformation("Data from Database");
-                    _memoryCache.Set(userId, cachedNotes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
-                }
-            }
-            else
+            if (_memoryCache.TryGetValue(userId, out List<Note>? cachedNotes))
             {
                 _logger.LogInformation("Data from cache");
+                return cachedNotes;
             }
-            return cachedNotes;
-        
-    }
+
+            var notes = _noteRepository.GetAllNotes(userId);
+
+            if (notes != null)
+            {
+                _logger.LogInformation("Data from Database");
+                _memoryCache.Set(userId, notes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+            }
+
+            return notes;
+        }
+
         public void AddNote(Note note)
         {
              _noteRepository.AddNote(note);
