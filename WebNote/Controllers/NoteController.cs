@@ -1,17 +1,9 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using NoteApp.BusinessLogic.Inrerfaces;
-using NoteApp.Data.Data.Models;
 using NoteApp.DataAccess.Data.Models;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Json;
-using WebNote.Common.Mappings;
 using WebNote.ViewModels;
 
 namespace WebNote.Controllers

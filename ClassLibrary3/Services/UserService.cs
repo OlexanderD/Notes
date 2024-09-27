@@ -15,7 +15,7 @@ namespace NoteApp.BusinessLogic.Services
 
         public UserService(IUserRepository userRepository)
         {
-            _userRepository=userRepository;
+            _userRepository = userRepository;
         }
         public List<User> GetAllUsers()
         {
