@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary3\NoteApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\BusinessLogic.NoteApp\NoteApp.BusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>

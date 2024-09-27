@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary3\NoteApp.BusinessLogic.csproj" />
-    <ProjectReference Include="..\ClassLibrary4\NoteApp.Data.csproj" />
+    <ProjectReference Include="..\BusinessLogic.NoteApp\NoteApp.BusinessLogic.csproj" />
+    <ProjectReference Include="..\DataAccess.NoteApp\NoteApp.Data.csproj" />
   </ItemGroup>
 
 </Project>
